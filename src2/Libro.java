@@ -22,6 +22,9 @@ public class Libro {
     public int getUnidadesDisponibles() { return unidadesDisponibles; } // Obtener la cantidad de unidades disponibles del libro
     public String getTitulo() { return titulo; } // Obtener el título del libro
 
+    public String getIsbn() { return isbn; } // Obtener el ISBN del libro
+    public String getAutor() { return autor; } // Obtener el autor del libro
+
 // Método para representar el libro como una cadena de texto, mostrando su título y unidades disponibles
     @Override
     public String toString() {

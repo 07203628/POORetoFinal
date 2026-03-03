@@ -16,4 +16,7 @@ public abstract class Usuario {
     public void registrarPrestamo() { this.librosPrestados++; } // Método para registrar un préstamo, incrementa el contador de libros prestados
     public void devolverLibro() { this.librosPrestados--; } // Método para registrar la devolución de un libro, decrementa el contador de libros prestados
     public String getNombre() { return nombre; }   // Método para obtener el nombre del usuario
+
+    public String getIdUsuario() { return idUsuario; } // Obtener el ID del usuario
+    public int getLibrosPrestados() { return librosPrestados; } // Obtener la cantidad de libros prestados
 }

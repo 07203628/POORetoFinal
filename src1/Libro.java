@@ -18,6 +18,9 @@ public class Libro {
     public int getUnidadesDisponibles() { return unidadesDisponibles; }
     public String getTitulo() { return titulo; }
 
+    public String getIsbn() { return isbn; }
+    public String getAutor() { return autor; }
+
     @Override
     public String toString() {
         return titulo + " (Disponibles: " + unidadesDisponibles + ")";        

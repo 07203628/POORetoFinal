@@ -1,27 +1,76 @@
+import java.util.Scanner;
+
 // Clase principal para ejecutar el programa de la biblioteca
 public class Main {
     public static void main(String[] args) {
-        Biblioteca miBiblioteca = new Biblioteca(); // Crear una instancia de la biblioteca
+        Biblioteca miBiblioteca = new Biblioteca();
+        try (Scanner sc = new Scanner(System.in)) {
+            boolean salir = false;
+            while (!salir) {
+                System.out.println("\n--- MENU BIBLIOTECA ---");
+                System.out.println("1. Registrar libro");
+                System.out.println("2. Registrar usuario");
+                System.out.println("3. Generar reporte");
+                System.out.println("4. Mostrar libros");
+                System.out.println("5. Mostrar usuarios");
+                System.out.println("6. Salir");
+                System.out.print("Seleccione una opción: ");
 
-// Crear algunos libros con su código, título, autor y cantidad disponible
-        Libro book1 = new Libro("1234", "ABC", "Juan", 2);
-        Libro book2 = new Libro("456", "DFG", "Pedro", 4);
+                String opcion = sc.nextLine();
+                clearPreviousLine();
+                switch (opcion) {
+                    case "1" -> {
+                        System.out.print("ISBN: ");
+                        String isbn = sc.nextLine();
+                        System.out.print("Título: ");
+                        String titulo = sc.nextLine();
+                        System.out.print("Autor: ");
+                        String autor = sc.nextLine();
+                        System.out.print("Unidades disponibles: ");
+                        int unidades = 0;
+                        String unidadesStr = sc.nextLine();
+                        clearPreviousLine();
+                        try {
+                            unidades = Integer.parseInt(unidadesStr);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Entrada inválida. Se usará 1 unidad por defecto.");
+                            unidades = 1;
+                        }
+                        Libro nuevoLibro = new Libro(isbn, titulo, autor, unidades);
+                        miBiblioteca.registrarLibro(nuevoLibro);
+                        System.out.println("Libro registrado: " + nuevoLibro);
+                    }
+                    case "2" -> {
+                        System.out.print("Tipo de usuario (E = Estudiante, P = Profesor): ");
+                        String tipo = sc.nextLine().trim().toUpperCase();
+                        System.out.print("ID usuario: ");
+                        String id = sc.nextLine();
+                        System.out.print("Nombre: ");
+                        String nombre = sc.nextLine();
+                        Usuario nuevoUsuario;
+                        if (tipo.equals("P")) {
+                            nuevoUsuario = new Profesor(id, nombre);
+                        } else {
+                            nuevoUsuario = new Estudiante(id, nombre);
+                        }
+                        miBiblioteca.registrarUsuario(nuevoUsuario);
+                        System.out.println("Usuario registrado: " + nombre + " (" + id + ")");
+                    }
+                    case "3" -> miBiblioteca.generarReporte();
+                    case "4" -> miBiblioteca.mostrarLibros();
+                    case "5" -> miBiblioteca.mostrarUsuarios();
+                    case "6" -> salir = true;
+                    default -> System.out.println("Opción no válida.");
+                }
+            }
 
-// Crear algunos usuarios, un estudiante y un profesor
-        Usuario user1 = new Estudiante("A01", "Diego");
-        Usuario user2 = new Profesor("P01", "Carlos");
+            System.out.println("Saliendo...");
+        }
+    }
 
-// Registrar los libros y usuarios en la biblioteca
-        miBiblioteca.registrarLibro(book1);
-        miBiblioteca.registrarLibro(book2);
-        miBiblioteca.registrarUsuario(user1);
-        miBiblioteca.registrarUsuario(user2);
-
-// Realizar algunos préstamos de libros a los usuarios
-        miBiblioteca.realizarPrestamo(user1, book1);
-        miBiblioteca.realizarPrestamo(user1, book2);
-        miBiblioteca.realizarPrestamo(user2, book1);
-        miBiblioteca.realizarPrestamo(user2, book2);
-        miBiblioteca.generarReporte();
+    private static void clearPreviousLine() {
+        final String ESC = "\u001B";
+        System.out.print(ESC + "[1A" + ESC + "[2K");
+        System.out.flush();
     }
 }

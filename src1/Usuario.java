@@ -13,4 +13,7 @@ public abstract class Usuario {
     public void registrarPrestamo() { this.librosPrestados++; }
     public void devolverLibro() { this.librosPrestados--; }
     public String getNombre() { return nombre; }   
+
+    public String getIdUsuario() { return idUsuario; }
+    public int getLibrosPrestados() { return librosPrestados; }
 }

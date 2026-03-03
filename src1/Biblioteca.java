@@ -41,4 +41,37 @@ public class Biblioteca {
         System.out.println("Préstamos activos: " + listaPrestamos.size());
         System.out.println("------------------");
     }
+
+    public void mostrarLibros() {
+        System.out.println("\n--- LISTA DE LIBROS ---");
+        if (listaLibros.isEmpty()) {
+            System.out.println("No hay libros registrados.");
+            return;
+        }
+        for (Libro l : listaLibros) {
+            System.out.println("ISBN: " + l.getIsbn() + " | Título: " + l.getTitulo() + " | Autor: " + l.getAutor() + " | Disponibles: " + l.getUnidadesDisponibles());
+        }
+    }
+
+    public void mostrarUsuarios() {
+        System.out.println("\n--- USUARIOS (ESTUDIANTES) ---");
+        boolean anyEst = false;
+        for (Usuario u : listaUsuario) {
+            if (u instanceof Estudiante) {
+                anyEst = true;
+                System.out.println(" - " + u.getNombre() + " (" + u.getIdUsuario() + ") - Prestados: " + u.getLibrosPrestados());
+            }
+        }
+        if (!anyEst) System.out.println("No hay estudiantes registrados.");
+
+        System.out.println("\n--- USUARIOS (PROFESORES) ---");
+        boolean anyProf = false;
+        for (Usuario u : listaUsuario) {
+            if (u instanceof Profesor) {
+                anyProf = true;
+                System.out.println(" - " + u.getNombre() + " (" + u.getIdUsuario() + ") - Prestados: " + u.getLibrosPrestados());
+            }
+        }
+        if (!anyProf) System.out.println("No hay profesores registrados.");
+    }
 }
